@@ -1,0 +1,28 @@
+{
+    "name": "kage-no-neko/glow",
+    "description": "Laravel Illuminate extension",
+    "keywords": [
+        "glow",
+        "laravel",
+        "illuminate"
+    ],
+    "homepage": "https://github.com/KageNoNeko/glow",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sergey Yakovlev",
+            "email": "shadowspawnshadow@gmail.com",
+            "homepage": "https://github.com/KageNoNeko",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Glow\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
