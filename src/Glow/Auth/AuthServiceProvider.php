@@ -17,11 +17,11 @@ class AuthServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
 
             $this->publishes([
-                                 __DIR__ . '/../config/glow.php' => config_path('glow.php'),
+                                 __DIR__ . '/../../../config/glow.php' => config_path('glow.php'),
                              ], 'config');
 
             $this->publishes([
-                                 __DIR__ . '/../database/migrations' => database_path('migrations'),
+                                 __DIR__ . '/../../../database/migrations' => database_path('migrations'),
                              ], 'migrations');
         }
     }
