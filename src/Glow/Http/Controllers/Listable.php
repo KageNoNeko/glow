@@ -79,18 +79,4 @@ trait Listable
                             ->get(),
         ];
     }
-
-    /**
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
-     */
-    protected function listPaginate(Request $request) {
-
-        $params = $this->listParams($request);
-        $query = $this->listDefaultQuery()
-                      ->orderBy($params['order_by'], $params['order_dir']);
-
-        return $query->paginate();
-    }
 }
