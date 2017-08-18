@@ -23,17 +23,19 @@ class PasswordBroker extends IlluminatePasswordBroker
      */
     protected function validateReset(array $credentials) {
 
+        // INVALID_TOKEN for both cases
+
         // at first retrieve token
         if (!$token = $this->tokens->retrieve($credentials[ 'token' ])) {
 
-            return static::INVALID_USER;
+            return static::INVALID_TOKEN;
         }
 
         // at second retrieve user
         $credentials[ 'email' ] = $token[ 'email' ];
         if (is_null($user = $this->getUser($credentials))) {
 
-            return static::INVALID_USER;
+            return static::INVALID_TOKEN;
         }
 
         // password validation should not be here at all
