@@ -2,38 +2,20 @@
 
 namespace Glow\Auth\Notifications;
 
-use Illuminate\Notifications\Notification;
+use Illuminate\Auth\Notifications\ResetPassword as IlluminateResetPassword;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class ResetPassword extends Notification
+class ResetPassword extends IlluminateResetPassword
 {
-    /**
-     * The password reset token.
-     *
-     * @var string
-     */
-    public $token;
 
     /**
-     * Create a notification instance.
+     * Build the reset password url
      *
-     * @param string $token
+     * @return string
      */
-    public function __construct($token) {
+    public function url() {
 
-        $this->token = $token;
-    }
-
-    /**
-     * Get the notification's channels.
-     *
-     * @param  mixed $notifiable
-     *
-     * @return array|string
-     */
-    public function via($notifiable) {
-
-        return ['mail'];
+        return url(config('app.url') . route('password.reset', $this->token, false));
     }
 
     /**
@@ -47,8 +29,7 @@ class ResetPassword extends Notification
 
         return (new MailMessage)
             ->line('You are receiving this email because we received a password reset request for your account.')
-            //->action('Reset Password', url(config('app.url') . route('password.reset', $this->token, false)))
-            ->action('Reset Password', url('password/reset/' . $this->token))
+            ->action('Reset Password', $this->url())
             ->line('If you did not request a password reset, no further action is required.');
     }
 }
