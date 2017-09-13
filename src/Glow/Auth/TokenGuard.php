@@ -201,4 +201,14 @@ class TokenGuard implements Guard
             $this->tokens->deleteForUser($user, $token);
         }
     }
+
+    /**
+     * Get the user provider used by the guard.
+     *
+     * @return \Illuminate\Contracts\Auth\UserProvider
+     */
+    public function getProvider() {
+
+        return $this->provider;
+    }
 }
