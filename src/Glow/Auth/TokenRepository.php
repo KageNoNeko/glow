@@ -136,7 +136,7 @@ class TokenRepository
 
         $this->table = $table;
         $this->hashKey = $hashKey;
-        $this->expires = $expires * 60;
+        $this->setExpires($expires);
         $this->connection = $connection;
         $this->multiple = $multiple;
     }
@@ -225,5 +225,13 @@ class TokenRepository
         $expiredAt = Carbon::now()->subSeconds($this->expires);
 
         $this->getTable()->where('created_at', '<', $expiredAt)->delete();
+    }
+
+    /**
+     * @param int $expires
+     */
+    public function setExpires($expires) {
+
+        $this->expires = $expires * 60;
     }
 }
