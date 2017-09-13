@@ -84,19 +84,7 @@ class TokenRepository
      */
     protected function getPayload(Authenticatable $user, $token) {
 
-        return ['user_id' => $user->getAuthIdentifier(), 'token' => $token, 'created_at' => new Carbon];
-    }
-
-    /**
-     * Return time when token expires
-     *
-     * @param string|Carbon $createdAt
-     *
-     * @return int
-     */
-    protected function expiredAt($createdAt) {
-
-        return strtotime($createdAt) + $this->expires;
+        return ['user_id' => $user->getAuthIdentifier(), 'token' => $token, 'expires_at' => (new Carbon)->addSeconds($this->expires)];
     }
 
     /**
@@ -108,9 +96,7 @@ class TokenRepository
      */
     protected function tokenExpired(array $token) {
 
-        $expiredAt = $this->expiredAt($token[ 'created_at' ]);
-
-        return $expiredAt < $this->getCurrentTime();
+        return strtotime($token[ 'expires_at' ]) < $this->getCurrentTime();
     }
 
     /**
@@ -180,7 +166,7 @@ class TokenRepository
 
         $payload = $this->getPayload($user, $token);
 
-        $expired_at = $this->expiredAt($payload[ 'created_at' ]);
+        $expired_at = $payload[ 'expires_at' ];
 
         $this->getTable()->insert($payload);
 
@@ -222,9 +208,7 @@ class TokenRepository
      */
     public function deleteExpired() {
 
-        $expiredAt = Carbon::now()->subSeconds($this->expires);
-
-        $this->getTable()->where('created_at', '<', $expiredAt)->delete();
+        $this->getTable()->where('expires_at', '<', Carbon::now())->delete();
     }
 
     /**

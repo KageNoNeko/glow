@@ -17,7 +17,7 @@ class CreateAccessTokensTable extends Migration
 
             $table->unsignedInteger('user_id');
             $table->string('token')->index();
-            $table->timestamp('created_at');
+            $table->timestamp('expires_at');
 
             $table->foreign('user_id')
                   ->references('id')->on('users')
