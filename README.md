@@ -1,3 +1,3 @@
 # Glow
 
-> Laravel 5.4 Illuminate extension
+> Laravel 5.5 Illuminate extension
