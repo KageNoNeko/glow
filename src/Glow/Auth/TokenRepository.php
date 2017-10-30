@@ -166,11 +166,11 @@ class TokenRepository
 
         $payload = $this->getPayload($user, $token);
 
-        $expired_at = $payload[ 'expires_at' ];
+        $expires_at = $payload[ 'expires_at' ];
 
         $this->getTable()->insert($payload);
 
-        return compact('token', 'expired_at');
+        return compact('token', 'expires_at');
     }
 
     /**
