@@ -70,13 +70,13 @@ trait Listable
 
         $params = $this->listParams($request);
         $query = $this->listDefaultQuery()
-                      ->orderBy($params['order_by'], $params['order_dir']);
+                      ->orderBy($params[ 'order_by' ], $params[ 'order_dir' ]);
 
         return [
             "total" => $query->count(),
-            "list" => $query->skip($params[ 'offset' ])
-                            ->take($params[ 'limit' ])
-                            ->get(),
+            "items" => $query->skip($params[ 'offset' ])
+                             ->take($params[ 'limit' ])
+                             ->get(),
         ];
     }
 }
