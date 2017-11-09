@@ -34,7 +34,7 @@ trait Listable
         return [
             'order_by' => 'nullable|string|in:' . implode(",", $this->listOrderColumns()),
             'order_dir' => 'nullable|string|in:asc,ASC,desc,DESC',
-            'offset' => 'nullable|integer|min:1',
+            'offset' => 'nullable|integer|min:0',
             'limit' => 'nullable|integer|min:1',
         ];
     }
@@ -50,7 +50,7 @@ trait Listable
 
         $this->validate($request, $rules);
 
-        return array_merge($this->listDefaults(), $request->intersect(array_keys($rules)));
+        return array_merge($this->listDefaults(), $request->only(array_keys($rules)));
     }
 
     /**
