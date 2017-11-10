@@ -19,8 +19,8 @@ trait Listable
     protected function listDefaults() {
 
         return [
-            'order_by' => $this->listOrderColumns()[ 0 ],
-            'order_dir' => 'asc',
+            'sort_by' => $this->listOrderColumns()[ 0 ],
+            'sort_dir' => 'asc',
             'offset' => 0,
             'limit' => 10,
         ];
@@ -32,8 +32,8 @@ trait Listable
     protected function listRules() {
 
         return [
-            'order_by' => 'nullable|string|in:' . implode(",", $this->listOrderColumns()),
-            'order_dir' => 'nullable|string|in:asc,ASC,desc,DESC',
+            'sort_by' => 'nullable|string|in:' . implode(",", $this->listOrderColumns()),
+            'sort_dir' => 'nullable|string|in:asc,ASC,desc,DESC',
             'offset' => 'nullable|integer|min:0',
             'limit' => 'nullable|integer|min:1',
         ];
@@ -70,7 +70,7 @@ trait Listable
 
         $params = $this->listParams($request);
         $query = $this->listDefaultQuery()
-                      ->orderBy($params[ 'order_by' ], $params[ 'order_dir' ]);
+                      ->orderBy($params[ 'sort_by' ], $params[ 'sort_dir' ]);
 
         return [
             "total" => $query->count(),
